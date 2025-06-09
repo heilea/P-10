@@ -12,5 +12,5 @@ export const MONTHS = {
   11: "novembre",
   12: "décembre",
 };
-
-export const getMonth = (date) => MONTHS[date.getMonth()];
+// On incrémente de 1 pour avoir le mois en cours
+export const getMonth = (date) => MONTHS[date.getMonth() + 1];
