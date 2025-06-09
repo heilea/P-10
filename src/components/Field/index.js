@@ -64,8 +64,8 @@ Field.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired, // Ajout de la props value
-  onChange: PropTypes.func.isRequired, // Ajout de la props onChange
+  value: PropTypes.string, // Ajout de la props value
+  onChange: PropTypes.func, // Ajout de la props onChange
 };
 
 Field.defaultProps = {
@@ -73,6 +73,8 @@ Field.defaultProps = {
   placeholder: "",
   type: FIELD_TYPES.INPUT_TEXT,
   name: "field-name",
+  value: "",
+  onChange: () => {},
 };
 
 export default Field;
