@@ -19,9 +19,25 @@ export const api = {
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [last, setLast] = useState(null);
+
   const getData = useCallback(async () => {
     try {
-      setData(await api.loadData());
+      const responseData = await api.loadData();
+      setData(responseData);
+      // Trouver le dernier evenement
+      if (
+        responseData &&
+        responseData.events &&
+        responseData.events.length > 0
+      ) {
+        const lastEvent = responseData.events.reduce(
+          (latest, event) =>
+            new Date(event.date) > new Date(latest.date) ? event : latest,
+          responseData.events[0]
+        );
+        setLast(lastEvent);
+      }
     } catch (err) {
       setError(err);
     }
@@ -38,6 +54,7 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
+        last,
       }}
     >
       {children}
