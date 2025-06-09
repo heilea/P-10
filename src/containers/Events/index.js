@@ -13,6 +13,7 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const typeList = new Set(data?.events.map((event) => event.type));
 
   const filteredEventsByType = type
     ? data?.events.filter((event) => event.type === type) || []
@@ -29,8 +30,8 @@ const EventList = () => {
     setType(evtType);
   };
 
-  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
-  const typeList = new Set(data?.events.map((event) => event.type));
+  const pageNumber =
+    Math.floor((filteredEventsByType?.length || 0) / PER_PAGE) + 1;
 
   return (
     <>
@@ -50,7 +51,8 @@ const EventList = () => {
                 {({ setIsOpened }) => (
                   <EventCard
                     onClick={() => setIsOpened(true)}
-                    imageSrc={event.cover}
+                    imageSrc={event?.cover}
+                    imageAlt={event.title}
                     title={event.title}
                     date={new Date(event.date)}
                     label={event.type}
